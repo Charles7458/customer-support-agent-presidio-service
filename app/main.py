@@ -20,12 +20,12 @@ analyzer = AnalyzerEngine()
 anonymizer = AnonymizerEngine()
 
 class RedactRequest(BaseModel):
-    text: str
+    input: str
 
 
 @app.post("/")
 def redact_pii(req:RedactRequest) -> str | None:
-    text = req.text
+    text = req.input
     results = analyzer.analyze(text,language="en")
     pii_count = len(results)
     if(pii_count == 0):
