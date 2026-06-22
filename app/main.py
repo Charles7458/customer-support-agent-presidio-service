@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 # For Presidio
 from presidio_analyzer import AnalyzerEngine
 from presidio_anonymizer import AnonymizerEngine, OperatorConfig
@@ -6,7 +7,13 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://customer-support-agent-frontend-64b.vercel.app"],  # your frontend
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 analyzer = AnalyzerEngine()
 
